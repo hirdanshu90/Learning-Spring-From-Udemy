@@ -1,0 +1,6 @@
+Udemy\course\service\StudentService.class
+Udemy\course\entity\Student.class
+Udemy\course\demo\ApiRestApplication.class
+Udemy\course\controller\StudentController.class
+Udemy\course\repository\StudentRepository.class
+Udemy\course\response\StudentResponse.class
