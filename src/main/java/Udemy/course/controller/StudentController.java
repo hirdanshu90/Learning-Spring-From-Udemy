@@ -52,13 +52,23 @@ public class StudentController {
     // name, and email) that are meant to be exposed to clients. This approach
     // provides several benefits:
     public List<StudentResponse> getAllStudents() {
+
+        // Retrieve the list of Student entities from the service
         List<Student> studentList = studentService.getAllStudents();
+
+        // // Create a new ArrayList to store StudentResponse objects
         List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
 
+        // Iterate through the list of Student entities and convert them to
+        // StudentResponse objects
         studentList.stream().forEach(student -> {
+
+            // // For each Student entity, create a new StudentResponse object and add it to
+            // the response list
             studentResponseList.add(new StudentResponse(student));
 
         });
+        // Return the list of StudentResponse objects
         return studentResponseList;
     }
 

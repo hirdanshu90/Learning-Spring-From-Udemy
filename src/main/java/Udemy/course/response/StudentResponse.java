@@ -16,7 +16,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 
-
 // WHY THIS CLASS .........
 // In summary, using the second method with a response class (StudentResponse)
 // provides better control over the data that your API exposes, leading to
@@ -37,6 +36,7 @@ public class StudentResponse {
 
     private String email;
 
+    // This takes the Student object as a parameter
     public StudentResponse(Student student) {
 
         this.id = student.getId();
