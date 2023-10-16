@@ -16,10 +16,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 
-// WHY THIS CLASS .........
+// WHY THIS CLASS .........Data goes to the db via this class .....
+
 // In summary, using the second method with a response class (StudentResponse)
 // provides better control over the data that your API exposes, leading to
-// improved security, encapsulation, and flexibility. It's a common practice in
+// improved security, encapsulation, and flexibility.
+
+// It's a common practice in
 // API design to use DTOs (Data Transfer Objects) or response classes to shape
 // the data sent to clients.
 

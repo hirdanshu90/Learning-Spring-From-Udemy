@@ -10,10 +10,12 @@ import lombok.Setter;
 @Setter
 
 // THis is the modal class for our HTTP Post API
+
 // Spring (and in software development in general), a model class is used to
 // represent the data in your application. In the context of a REST API, a model
 // class represents the structure of the data that is sent and received via the
 // API endpoints.
+
 // In summary, using model classes in Spring APIs provides a clear and organized
 // way to handle data, enforce validation rules, bind request data, and
 // serialize/deserialize JSON. It contributes to the maintainability,

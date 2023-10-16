@@ -315,3 +315,26 @@ Here's what the repository class is doing and why it's important:
    - When writing tests, you can easily create mock implementations or use Spring's testing support to test your components without worrying about the actual database interactions. This makes unit testing much simpler.
 
 In summary, the repository class abstracts away the complexities of data access and provides a clean, high-level interface for interacting with the underlying database. It enhances code readability, maintainability, and testability while reducing the amount of boilerplate code that developers need to write.
+
+''''''''''''''''''''''''''''
+@RequestParam method
+''''''''''''''''''''''''''''
+
+In Spring MVC, `@RequestParam` is an annotation used to extract query parameters from the URL or form parameters from an HTTP request. It binds the value of a query parameter or form parameter to a method parameter in your controller.
+
+Here's how you can use `@RequestParam` in a Spring MVC controller method:
+
+```java
+@RestController
+@RequestMapping("/api")
+public class MyController {
+
+    @GetMapping("/example")
+    public ResponseEntity<String> exampleEndpoint(@RequestParam("paramName") String parameterValue) {
+        // Logic using parameterValue
+        return ResponseEntity.ok("Received parameter: " + parameterValue);
+    }
+}
+```
+
+In this example, the `@RequestParam("paramName")` annotation is used to extract the value of the query parameter or form parameter with the name "paramName". Spring automatically binds the value of the "paramName" parameter from the request URL to the `parameterValue` variable in the `exampleEndpoint` method.

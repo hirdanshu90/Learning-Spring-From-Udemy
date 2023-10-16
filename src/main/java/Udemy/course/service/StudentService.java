@@ -56,4 +56,14 @@ public class StudentService {
         return student;
 
     }
+
+    // Delete API LOGIC via @RequestParam method ......
+
+    public String deleteStudent(int id) {
+
+        // Method provided by JPA using that .....
+        studentRepository.deleteById(id);
+
+        return "student has been deleted";
+    }
 }
