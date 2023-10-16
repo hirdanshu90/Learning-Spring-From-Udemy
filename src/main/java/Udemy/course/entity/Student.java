@@ -1,11 +1,14 @@
 package Udemy.course.entity;
 
+import Udemy.course.request.CreateStudentRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -14,25 +17,35 @@ import lombok.Setter;
 // REferencing to entity and the table name .....
 @Entity
 @Table(name = "student")
+@NoArgsConstructor
 
 // Class representing database in the mySQL db
 
 // DATABASE ENTITY CLASSSSSSSSSSSS
 public class Student {
 
-// Primary Key 
+    // Primary Key
     @Id
-    @GeneratedValue
+    // for PK
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
     @Column(name = "first_name")
     private String firstName;
-    
+
     @Column(name = "last_name")
     private String lastName;
-    
+
     @Column(name = "email")
     private String email;
+
+    // Contructor for POST API, this will be used inside the service class, passing
+    // CreateStudentRequest as parameters.
+    public Student(CreateStudentRequest createStudentRequest) {
+        this.firstName = createStudentRequest.getFirstName();
+        this.lastName = createStudentRequest.getLastName();
+        this.email = createStudentRequest.getEmail();
+    }
 
 }

@@ -6,10 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Udemy.course.entity.Student;
+import Udemy.course.request.CreateStudentRequest;
 import Udemy.course.response.StudentResponse;
 // import Udemy.course.response.StudentResponse;
 import Udemy.course.service.StudentService;
@@ -25,32 +28,11 @@ public class StudentController {
     // Spring Framework will convert this java object to JSON
 
     // Calling the method getAllStudents from the service class and mapping this to
-    // the getAll endpoint.......
+    // the getAll endpoint.......,,
+
     @Autowired
     StudentService studentService;
 
-    // We should not do use the first method, instead use the second one ......
-
-    // FIRST MEthod (That is commented and not used...)
-
-    // This method directly returns a list of Student objects retrieved from the
-    // database. The response will contain the raw student data. If this method is
-    // used, the client consuming the API would receive the actual database
-    // entities, including all fields defined in the Student class, which might
-    // include sensitive information. In a real-world scenario, exposing raw entity
-    // objects to clients is generally discouraged due to security and encapsulation
-    // concerns. It's often better to create a separate response model that exposes
-    // only the necessary fields and hides sensitive data.
-    @GetMapping("/getAll")
-    // public List<Student> getAllStudents()
-    // {
-    // return studentService.getAllStudents();
-    // }
-
-    // SECOND method ....
-    // The StudentResponse class contains only specific fields (id, first name, last
-    // name, and email) that are meant to be exposed to clients. This approach
-    // provides several benefits:
     public List<StudentResponse> getAllStudents() {
 
         // Retrieve the list of Student entities from the service
@@ -70,6 +52,17 @@ public class StudentController {
         });
         // Return the list of StudentResponse objects
         return studentResponseList;
+    }
+
+    // POST Method ......
+    // Spring converts whatever data we are sending to JSON automatically. Now here
+    // we need the Json DATA to be converted according to the class, so WE use
+    // @RequestBody before the class we want to use and the Payload
+    @PostMapping("create")
+    public StudentResponse createStudent(@RequestBody CreateStudentRequest createStudentRequest) {
+        Student student = studentService.createStudent(createStudentRequest);
+        return new StudentResponse(student);
+
     }
 
 }
