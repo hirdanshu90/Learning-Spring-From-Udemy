@@ -18,14 +18,9 @@
 		<java.version>17</java.version>
 		<jakartaee.version>9.0.0</jakartaee.version>
 	</properties>
-	<!-- <properties>
-    	<jakartaee.version>9.0.0</jakartaee.version>
-	</properties> -->
+
 	<dependencies>
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency> -->
+
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -79,12 +74,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency> -->
 	</dependencies>
 
 	<build>

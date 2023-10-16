@@ -39,10 +39,15 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    @GetMapping("getAll")
     public List<StudentResponse> getAllStudents() {
 
         // Retrieve the list of Student entities from the service
         List<Student> studentList = studentService.getAllStudents();
+
+        // ...........
+        // This code is to convert the list of studentList to studentResponseList
+        // ...........
 
         // // Create a new ArrayList to store StudentResponse objects
         List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
@@ -64,6 +69,7 @@ public class StudentController {
     // Spring converts whatever data we are sending to JSON automatically. Now here
     // we need the Json DATA to be converted according to the class, so WE use
     // @RequestBody before the class we want to use and the Payload
+
     @PostMapping("create")
     // @Valid: For server side validation, and that is mentioned in the modal class,
     // what validation.....
@@ -96,6 +102,35 @@ public class StudentController {
     @DeleteMapping("delete/{id}")
     public String deleteStudent_pathVariable(@PathVariable int id) {
         return studentService.deleteStudent(id);
+    }
+
+    // Getting firstname from the database ....
+    @GetMapping("getByFirstName/{firstName}")
+
+    public List<StudentResponse> getByFirstName(@PathVariable String firstName) {
+        List<Student> studentList = studentService.getByFirstName(firstName);
+        // // Create a new ArrayList to store StudentResponse objects
+        List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
+
+        // Iterate through the list of Student entities and convert them to
+        // StudentResponse objects
+        studentList.stream().forEach(student -> {
+
+            // // For each Student entity, create a new StudentResponse object and add it to
+            // the response list
+            studentResponseList.add(new StudentResponse(student));
+
+        });
+        // Return the list of StudentResponse objects
+        return studentResponseList;
+
+    }
+
+    // Getting Firstname AND lastname together .....
+    @GetMapping("getByFirstNameAndLastName/{firstName}/{lastName}")
+    public StudentResponse getByFirstNameAndLastName(@PathVariable String firstName, @PathVariable String lastName) {
+        return new StudentResponse(studentService.getFirstNameAndLastName(firstName, lastName));
+         
     }
 
 }

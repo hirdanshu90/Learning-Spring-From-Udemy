@@ -5,11 +5,13 @@ import java.util.List;
 // import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import Udemy.course.entity.Student;
 import Udemy.course.repository.StudentRepository;
 import Udemy.course.request.CreateStudentRequest;
 import Udemy.course.request.UpdateStudentRequest;
+import Udemy.course.response.StudentResponse;
 
 // Writing Logic here
 @Service
@@ -65,5 +67,18 @@ public class StudentService {
         studentRepository.deleteById(id);
 
         return "student has been deleted";
+    }
+
+    // Method for getting firstName from the db ....
+    public List<Student> getByFirstName(String firstName) {
+        return studentRepository.findByFirstName(firstName);
+
+    }
+
+    // Method for getting firstName and lastName from the db ......
+    public Student getFirstNameAndLastName(String firstName, String lastName) {
+        Student fn = studentRepository.findByFirstNameAndLastName(firstName, lastName);
+        return fn;
+
     }
 }
