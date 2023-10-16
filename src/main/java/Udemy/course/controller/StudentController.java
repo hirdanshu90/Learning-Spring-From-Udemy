@@ -73,7 +73,8 @@ public class StudentController {
     @PutMapping ("update")
     public StudentResponse updateStudent (@Valid @RequestBody UpdateStudentRequest updateStudentRequest){
 
-        Student student = studentService.;
+        Student student = studentService.updateStudent(updateStudentRequest);
+        // Now converting this student object to student response object. .....
         return new StudentResponse(student);
         
     }

@@ -32,6 +32,8 @@ public class StudentService {
     // either use getter and setters or MAKE a contructor inside the Entity class
     public Student createStudent(CreateStudentRequest createStudentRequest) {
         Student student = new Student(createStudentRequest);
+        // Updating the repo.....
+        // Save method is for both to CREATE and INSERT the record
         student = studentRepository.save(student);
         return student;
 
@@ -43,11 +45,15 @@ public class StudentService {
         // Finding the id by ID from the student repo ....
         Student student = studentRepository.findById(updateStudentRequest.getId()).get();
 
+        // Checking for first name ......
         if (updateStudentRequest.getFirstName() != null && !updateStudentRequest.getFirstName().isEmpty()) {
-            // If its coming then set the first name to the student entity class. 
+            // If its coming then set the first name to the student entity class.
             student.setFirstName(updateStudentRequest.getFirstName());
         }
-        return null;
+        // Updating the repo.....
+        // Save method is for both to CREATE and INSERT the record
+        student = studentRepository.save(student);
+        return student;
 
     }
 }
