@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Udemy.course.entity.Student;
 import Udemy.course.request.CreateStudentRequest;
+import Udemy.course.request.UpdateStudentRequest;
 import Udemy.course.response.StudentResponse;
 // import Udemy.course.response.StudentResponse;
 import Udemy.course.service.StudentService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/student/")
@@ -59,10 +62,20 @@ public class StudentController {
     // we need the Json DATA to be converted according to the class, so WE use
     // @RequestBody before the class we want to use and the Payload
     @PostMapping("create")
-    public StudentResponse createStudent(@RequestBody CreateStudentRequest createStudentRequest) {
+    // @Valid: For server side validation, and that is mentioned in the modal class, what validation.....
+    public StudentResponse createStudent(@Valid @RequestBody CreateStudentRequest createStudentRequest) {
+
         Student student = studentService.createStudent(createStudentRequest);
         return new StudentResponse(student);
 
+    }
+
+    @PutMapping ("update")
+    public StudentResponse updateStudent (@Valid @RequestBody UpdateStudentRequest updateStudentRequest){
+
+        Student student = studentService.;
+        return new StudentResponse(student);
+        
     }
 
 }

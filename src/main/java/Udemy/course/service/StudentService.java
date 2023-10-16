@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import Udemy.course.entity.Student;
 import Udemy.course.repository.StudentRepository;
 import Udemy.course.request.CreateStudentRequest;
+import Udemy.course.request.UpdateStudentRequest;
 
 // Writing Logic here
 @Service
@@ -36,4 +37,17 @@ public class StudentService {
 
     }
 
+    // Method for PUT API, (To update some record)
+    // Whatever coming from controller we will pass here updateStudentRequest
+    public Student updateStudent(UpdateStudentRequest updateStudentRequest) {
+        // Finding the id by ID from the student repo ....
+        Student student = studentRepository.findById(updateStudentRequest.getId()).get();
+
+        if (updateStudentRequest.getFirstName() != null && !updateStudentRequest.getFirstName().isEmpty()) {
+            // If its coming then set the first name to the student entity class. 
+            student.setFirstName(updateStudentRequest.getFirstName());
+        }
+        return null;
+
+    }
 }
