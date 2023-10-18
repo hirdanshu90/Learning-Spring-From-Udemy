@@ -11,6 +11,7 @@ import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "student")
 @NoArgsConstructor
+@ToString
 
 // Class representing database in the mySQL db
 
