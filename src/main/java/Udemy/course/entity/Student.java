@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,12 +41,18 @@ public class Student {
     @Column(name = "email")
     private String email;
 
+    // This field is not there in the database, but we need this so we make this by
+    // @Transient .........
+    @Transient
+    private String fullName;
+
     // Contructor for POST API, this will be used inside the service class, passing
     // CreateStudentRequest as parameters.
     public Student(CreateStudentRequest createStudentRequest) {
         this.firstName = createStudentRequest.getFirstName();
         this.lastName = createStudentRequest.getLastName();
         this.email = createStudentRequest.getEmail();
+        this.fullName = createStudentRequest.getFirstName() + " " + createStudentRequest.getLastName();
     }
 
 }

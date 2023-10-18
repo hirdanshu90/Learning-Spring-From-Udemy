@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Udemy.course.entity.Student;
 import Udemy.course.request.CreateStudentRequest;
+import Udemy.course.request.InQueryRequest;
 import Udemy.course.request.UpdateStudentRequest;
 import Udemy.course.response.StudentResponse;
 // import Udemy.course.response.StudentResponse;
@@ -130,7 +131,89 @@ public class StudentController {
     @GetMapping("getByFirstNameAndLastName/{firstName}/{lastName}")
     public StudentResponse getByFirstNameAndLastName(@PathVariable String firstName, @PathVariable String lastName) {
         return new StudentResponse(studentService.getFirstNameAndLastName(firstName, lastName));
-         
+
     }
 
+    // Basically a get method where We provide a list of firstnames, and from that,
+    // if something matches we get that in the form of a list.
+    @GetMapping("getByFirstNameIn")
+    public List<StudentResponse> getByFirstName(@RequestBody InQueryRequest inQuesryRequest) {
+
+        List<Student> studentList = studentService.getFirstNameIn(inQuesryRequest);
+
+        List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
+
+        // Iterate through the list of Student entities and convert them to
+        // StudentResponse objects
+        studentList.stream().forEach(student -> {
+
+            // // For each Student entity, create a new StudentResponse object and add it to
+            // the response list
+            studentResponseList.add(new StudentResponse(student));
+
+        });
+        // Return the list of StudentResponse objects
+        return studentResponseList;
+
+    }
+
+    // @GetMapping("getAllWithPagination")
+    // public List<StudentResponse> getAllStudentsWithPagination(@RequestParam int
+    // pageNo, @RequestParam int pageSize) {
+    // List<Student> studentList =
+    // StudentService.getAllStudentsWithPagination(pageNo, pageSize);
+
+    // List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
+
+    // studentList.stream().forEach(student -> {
+    // studentResponseList.add(new StudentResponse(student));
+    // });
+
+    // return studentResponseList;
+    // }
+
+    // Get method for the 'Like' in SQL query "%on%".... /like/on here any firstname that
+    // has on in it, will be in the list.
+    @GetMapping("like/{firstName}")
+    public List<StudentResponse> like(@PathVariable String firstName) {
+        List<Student> studentList = studentService.like(firstName);
+
+        List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
+
+        // Iterate through the list of Student entities and convert them to
+        // StudentResponse objects
+        studentList.stream().forEach(student -> {
+
+            // // For each Student entity, create a new StudentResponse object and add it to
+            // the response list
+            studentResponseList.add(new StudentResponse(student));
+
+        });
+        // Return the list of StudentResponse objects
+        return studentResponseList;
+
+    }
+
+    // Get method for the 'startwith' in SQL query "John%".... /startsWith/John here any
+    // firstname that
+    // has John in it, will be in the list.
+    @GetMapping("startsWith/{firstName}")
+    public List<StudentResponse> startsWith(@PathVariable String firstName) {
+        List<Student> studentList = studentService.startsWith(firstName);
+
+        List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
+
+        // Iterate through the list of Student entities and convert them to
+        // StudentResponse objects
+        studentList.stream().forEach(student -> {
+
+            // // For each Student entity, create a new StudentResponse object and add it to
+            // the response list
+            studentResponseList.add(new StudentResponse(student));
+
+        });
+        // Return the list of StudentResponse objects
+        return studentResponseList;
+
+    }
 }

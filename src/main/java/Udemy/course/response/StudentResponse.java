@@ -16,7 +16,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 
-// WHY THIS CLASS .........Data goes to the db via this class ..... This is the Modal class for GET request API ......
+// WHY THIS CLASS .........Data goes to the db via this class ..... This is the
+// Modal class for GET request API ......
 
 // In summary, using the second method with a response class (StudentResponse)
 // provides better control over the data that your API exposes, leading to
@@ -39,6 +40,8 @@ public class StudentResponse {
 
     private String email;
 
+    private String fullName;
+
     // This takes the Student object as a parameter
     public StudentResponse(Student student) {
 
@@ -46,6 +49,7 @@ public class StudentResponse {
         this.firstName = student.getFirstName();
         this.lastName = student.getLastName();
         this.email = student.getEmail();
+        this.fullName = student.getFirstName() + " " + student.getLastName();
 
     }
 }

@@ -4,12 +4,19 @@ import java.util.List;
 
 // import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+// import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import Udemy.course.entity.Student;
 import Udemy.course.repository.StudentRepository;
 import Udemy.course.request.CreateStudentRequest;
+import Udemy.course.request.InQueryRequest;
 import Udemy.course.request.UpdateStudentRequest;
 import Udemy.course.response.StudentResponse;
 
@@ -79,6 +86,39 @@ public class StudentService {
     public Student getFirstNameAndLastName(String firstName, String lastName) {
         Student fn = studentRepository.findByFirstNameAndLastName(firstName, lastName);
         return fn;
+
+    }
+
+    // Method for getting firstName in .... from the db
+    public List<Student> getFirstNameIn(InQueryRequest inQueryRequest) {
+        return studentRepository.findByFirstNameIn(inQueryRequest.getFirstNames());
+    }
+
+    // Method for getting pagination and getting a list of students ......
+
+    // public static List<Student> getAllStudentsWithPagination(int pageNo, int
+    // pageSize) {
+    // // -1 beacause it is a 0 based index static method ....
+    // Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+    // return studentRepository.findAll(pageable);
+    // }
+
+    // Method to sort the data in db .....
+
+    // public List<Student> getAllStudentWithSorting () {
+    // Sort sort = Sort.by(Sort.Direction.ASC, "firstName");
+    // return studentRepository.findAll(sort);
+    // }
+
+    // Method for Like in SQL
+    public List<Student> like(String firstName) {
+        return studentRepository.findByFirstNameContains(firstName);
+
+    }
+
+    // Method for StartsWith in SQL....
+    public List<Student> startsWith(String firstName) {
+        return studentRepository.findByFirstNameStartsWith(firstName);
 
     }
 }
