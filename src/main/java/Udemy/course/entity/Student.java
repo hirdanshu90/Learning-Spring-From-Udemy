@@ -1,5 +1,8 @@
 package Udemy.course.entity;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 import Udemy.course.request.CreateStudentRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -47,6 +50,11 @@ public class Student {
     // @Transient .........
     @Transient
     private String fullName;
+
+    // Our student entity class has a relationship with the Address entity class
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     // Contructor for POST API, this will be used inside the service class, passing
     // CreateStudentRequest as parameters.

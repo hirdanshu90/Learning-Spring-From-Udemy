@@ -2,7 +2,12 @@ package Udemy.course.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import Udemy.course.entity.Student;
@@ -35,5 +40,29 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     List<Student> findByFirstNameContains(String firstName);
 
     List<Student> findByFirstNameStartsWith(String firstName);
+
+    // Writing JPQL SELECT queries ..... to retrieve name giving firstname and
+    // lastname,
+
+    // Here firstname spelling is different from that of the db, so using @Param to
+    // specify in the query, use with semicolon ...
+    @Query("From Student where firstName = :firstname and lastName = :lastName")
+    Student getByLastNameAndFirstName(String lastName, @Param("firstname") String firstName);
+    // Now one can call this method in the StudentService class and use that inside
+    // the controller class .....
+
+    // We are updating/deleting the record so these 2 annotations are required ....
+    // has to
+    // return void or INTEGER nothing else.
+    @Modifying
+    @Transactional
+    @Query("Update Student set firstName = :firstName where id = :id")
+    Integer updateFirstName(int id, String firstName);
+
+    // Deleter Query
+    @Modifying
+    @Transactional
+    @Query("Delete FROM Student where firstName = :firstName ")
+    Integer deleteFirstName(String firstName);
 
 }

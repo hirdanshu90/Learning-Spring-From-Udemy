@@ -42,6 +42,11 @@ public class StudentResponse {
 
     private String fullName;
 
+    // Adding 2 more parameters wrt to address entity class .......
+    private String street;
+
+    private String city; 
+
     // This takes the Student object as a parameter
     public StudentResponse(Student student) {
 
@@ -50,6 +55,10 @@ public class StudentResponse {
         this.lastName = student.getLastName();
         this.email = student.getEmail();
         this.fullName = student.getFirstName() + " " + student.getLastName();
+
+        // Inside student we have address object so getting the details from there.......
+        this.street = student.getAddress().getStreet();
+        this.city = student.getAddress().getCity(); 
 
     }
 }

@@ -2,6 +2,7 @@ package Udemy.course.service;
 
 import java.util.List;
 
+import org.aspectj.weaver.ast.And;
 // import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
@@ -13,7 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import Udemy.course.entity.Address;
 import Udemy.course.entity.Student;
+import Udemy.course.repository.AddressRepository;
 import Udemy.course.repository.StudentRepository;
 import Udemy.course.request.CreateStudentRequest;
 import Udemy.course.request.InQueryRequest;
@@ -26,6 +29,9 @@ public class StudentService {
 
     @Autowired
     StudentRepository studentRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
 
     // Method to return all the student names from the db
     // We are able to call findAll method, because we are extending JPA repo and
@@ -41,6 +47,31 @@ public class StudentService {
     // either use getter and setters or MAKE a contructor inside the Entity class
     public Student createStudent(CreateStudentRequest createStudentRequest) {
         Student student = new Student(createStudentRequest);
+
+        // Upating the address table as well when creating the student table .........
+        // because address table has the relationship woth the student table....
+
+        // So the order is first, insert the record into the parent table, obtain the
+        // foreign key, and then
+        // insert the record into the child table.
+
+        // First, we need to create the object
+        // of address entity class and from here we are getting the address
+        // Street City, right?
+        // And then using the address repository, we will persist that object into the
+        // address table.
+
+        Address address = new Address();
+        address.setStreet(createStudentRequest.getStreet());
+        address.setCity(createStudentRequest.getCity());
+
+        // We need to call and pass the entity class object and in return we will get
+        // that created record, basically
+        // object of entity class.
+        address = addressRepository.save(address);
+
+        student.setAddress(address);
+
         // Updating the repo.....
         // Save method is for both to CREATE and INSERT the record
         student = studentRepository.save(student);
@@ -119,6 +150,12 @@ public class StudentService {
     // Method for StartsWith in SQL....
     public List<Student> startsWith(String firstName) {
         return studentRepository.findByFirstNameStartsWith(firstName);
+
+    }
+
+    // Method to update firstName using id
+    public Integer updateStudentWithJpql(int id, String firstName) {
+        return studentRepository.updateFirstName(id, firstName);
 
     }
 }

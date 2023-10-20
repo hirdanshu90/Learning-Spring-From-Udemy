@@ -30,4 +30,9 @@ public class CreateStudentRequest {
 
     private String email;
 
+    // Adding 2 fields in the request modal class wrt to address entity class ......
+    private String street;
+
+    private String city;
+
 }

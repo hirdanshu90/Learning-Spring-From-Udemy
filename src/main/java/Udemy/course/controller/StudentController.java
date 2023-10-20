@@ -172,7 +172,8 @@ public class StudentController {
     // return studentResponseList;
     // }
 
-    // Get method for the 'Like' in SQL query "%on%".... /like/on here any firstname that
+    // Get method for the 'Like' in SQL query "%on%".... /like/on here any firstname
+    // that
     // has on in it, will be in the list.
     @GetMapping("like/{firstName}")
     public List<StudentResponse> like(@PathVariable String firstName) {
@@ -194,7 +195,8 @@ public class StudentController {
 
     }
 
-    // Get method for the 'startwith' in SQL query "John%".... /startsWith/John here any
+    // Get method for the 'startwith' in SQL query "John%".... /startsWith/John here
+    // any
     // firstname that
     // has John in it, will be in the list.
     @GetMapping("startsWith/{firstName}")
@@ -215,5 +217,11 @@ public class StudentController {
         // Return the list of StudentResponse objects
         return studentResponseList;
 
+    }
+
+    // Update firstName of the student .... using JPQL
+    @PutMapping("updateFirstName/{id}/{firstName}")
+    public String updateStudentWithJpql(@PathVariable int id, @PathVariable String firstName) {
+        return studentService.updateStudentWithJpql(id, firstName) + "Student updated";
     }
 }
